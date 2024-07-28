@@ -16,7 +16,7 @@ public class ShooterCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double shooterSpeed = controller.getL2Axis(); // Assume L2 is used for shooter speed
+    double shooterSpeed = controller.getL2Axis();
     shooterSubsystem.setShooterSpeed(shooterSpeed);
   }
 

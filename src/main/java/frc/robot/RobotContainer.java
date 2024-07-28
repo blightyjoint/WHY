@@ -19,8 +19,6 @@ public class RobotContainer {
   // Commands
   private final ArmCommand armCommand = new ArmCommand(armSubsystem, controller);
   private final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, null);
-  // private final IntakeCommand intakeCommand = new
-  // IntakeCommand(intakeSubsystem, controller);
   private final TransferCommand transferCommand = new TransferCommand(transferSubsystem, controller);
   private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, controller);
 
@@ -31,20 +29,19 @@ public class RobotContainer {
   private void configureBindings() {
     // Button bindings
     new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kSquare.value)
-        .whileTrue(new ArmCommand(armSubsystem, controller));
+        .whileTrue(armCommand);
 
     new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kCircle.value)
-        .whileTrue(new IntakeCommand(intakeSubsystem, null));
+        .whileTrue(intakeCommand);
 
     new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kCross.value)
-        .whileTrue(new TransferCommand(transferSubsystem, controller));
+        .whileTrue(transferCommand);
 
     new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kTriangle.value)
-        .whileTrue(new ShooterCommand(shooterSubsystem, controller));
+        .whileTrue(shooterCommand);
   }
 
   public Command getAutonomousCommand() {
-    // Return the command to run in autonomous mode
     return null;
   }
 }

@@ -16,7 +16,7 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double armPosition = controller.getLeftY();
+    double armPosition = controller.getLeftY() * 1000;
     armSubsystem.setArmPosition(armPosition);
   }
 

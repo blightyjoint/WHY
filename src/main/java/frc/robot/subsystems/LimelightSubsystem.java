@@ -19,6 +19,10 @@ public class LimelightSubsystem extends SubsystemBase {
     return limelightTable.getEntry("ty").getDouble(0.0);
   }
 
+  public double getTargetArea() {
+    return limelightTable.getEntry("ta").getDouble(0.0);
+  }
+
   @Override
   public void periodic() {
   }
