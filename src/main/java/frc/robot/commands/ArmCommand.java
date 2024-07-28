@@ -10,7 +10,7 @@ public class ArmCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final CommandPS5Controller controller;
 
-  public ArmCommand(ArmSubsystem armSubsystem, PS5Controller controller2) {
+  public ArmCommand(ArmSubsystem armSubsystem, CommandPS5Controller controller2) {
     this.armSubsystem = armSubsystem;
     this.controller = controller2;
     addRequirements(armSubsystem);

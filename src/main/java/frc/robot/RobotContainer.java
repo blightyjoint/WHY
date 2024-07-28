@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -14,7 +15,7 @@ public class RobotContainer {
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   // Controller
-  private final PS5Controller controller = new PS5Controller(0);
+  private final CommandPS5Controller controller = new CommandPS5Controller(0);
 
   // Commands
   private final ArmCommand armCommand = new ArmCommand(armSubsystem, controller);
@@ -27,18 +28,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // Button bindings
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kSquare.value)
-        .whileTrue(armCommand);
 
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kCircle.value)
-        .whileTrue(intakeCommand);
-
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kCross.value)
-        .whileTrue(transferCommand);
-
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kTriangle.value)
-        .whileTrue(shooterCommand);
+    controller.square().whileTrue(armCommand);
+    controller.circle().whileTrue(intakeCommand);
+    controller.cross().whileTrue(transferCommand);
+    controller.triangle().whileTrue(shooterCommand);
   }
 
   public Command getAutonomousCommand() {

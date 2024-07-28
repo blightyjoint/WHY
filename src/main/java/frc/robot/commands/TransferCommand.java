@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.PS5Controller;
 
 public class TransferCommand extends CommandBase {
   private final TransferSubsystem transferSubsystem;
-  private final PS5Controller controller;
+  private final CommandPS5Controller controller;
 
-  public TransferCommand(TransferSubsystem transferSubsystem, PS5Controller controller) {
+  public TransferCommand(TransferSubsystem transferSubsystem, CommandPS5Controller controller2) {
     this.transferSubsystem = transferSubsystem;
-    this.controller = controller;
+    this.controller = controller2;
     addRequirements(transferSubsystem);
   }
 
