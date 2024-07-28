@@ -3,12 +3,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.PS5Controller;
 
 public class IntakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
-  private final PS4Controller controller;
+  private final PS5Controller controller;
 
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, PS4Controller controller) {
+  public IntakeCommand(IntakeSubsystem intakeSubsystem, PS5Controller controller) {
     this.intakeSubsystem = intakeSubsystem;
     this.controller = controller;
     addRequirements(intakeSubsystem);

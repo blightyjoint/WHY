@@ -1,41 +1,29 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private final TalonFX shooterMotor = new TalonFX(4);
+  private final CANSparkMax shooterMotor = new CANSparkMax(4, MotorType.kBrushless);
+  private final SparkMaxPIDController pidController = shooterMotor.getPIDController();
 
-  private final TalonFXConfiguration config = new TalonFXConfiguration();
+  private final double SHOOTER_CONSTANT_SPEED = 0.5;
 
   public ShooterSubsystem() {
+    // Initialize hardware
+    pidController.setP(0.1);
+    pidController.setI(0.0);
+    pidController.setD(0.0);
+    pidController.setFF(0.0);
 
-    var talonFXConfigs = new TalonFXConfiguration();
-
-    config.Slot0.kP = 0.1;
-    config.Slot0.kI = 0.0;
-    config.Slot0.kD = 0.0;
-    config.Slot0.kA = 0.0;
-
-    var motionMagicConfigs = talonFXConfigs.MotionMagic;
-
-    motionMagicConfigs.MotionMagicCruiseVelocity = 1000;
-    motionMagicConfigs.MotionMagicAcceleration = 2000;
-
-    shooterMotor.getConfigurator().apply(talonFXConfigs);
-
-    // shooterMotor.configAllSettings(config);
-    // shooterMotor.configSelectedFeedbackSensor();
-    // shooterMotor.configNeutralDeadband(0.001);
-    shooterMotor.setNeutralMode(NeutralModeValue.Brake);
+    shooterMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    pidController.setOutputRange(-1.0, 1.0);
   }
 
-  public void setShooterSpeed(double speed) {
-    shooterMotor.set(speed);
+  public void shoot() {
+    shooterMotor.set(SHOOTER_CONSTANT_SPEED);
   }
 
   @Override

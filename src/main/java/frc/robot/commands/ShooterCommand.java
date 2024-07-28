@@ -2,22 +2,25 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
-import edu.wpi.first.wpilibj.PS4Controller;
+import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.PS5Controller;
 
 public class ShooterCommand extends CommandBase {
   private final ShooterSubsystem shooterSubsystem;
-  private final PS4Controller controller;
+  private final LimelightSubsystem limelightSubsystem;
+  private final PS5Controller controller;
 
-  public ShooterCommand(ShooterSubsystem shooterSubsystem, PS4Controller controller) {
+  public ShooterCommand(ShooterSubsystem shooterSubsystem, LimelightSubsystem controller) {
     this.shooterSubsystem = shooterSubsystem;
-    this.controller = controller;
+    this.limelightSubsystem = controller;
+    this.controller = null;
     addRequirements(shooterSubsystem);
   }
 
   @Override
   public void execute() {
-    double shooterSpeed = controller.getL2Axis();
-    shooterSubsystem.setShooterSpeed(shooterSpeed);
+    double targetArea = limelightSubsystem.getTargetArea();
+    shooterSubsystem.shoot();
   }
 
   @Override

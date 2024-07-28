@@ -1,6 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -14,13 +14,13 @@ public class RobotContainer {
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
   // Controller
-  private final PS4Controller controller = new PS4Controller(0);
+  private final PS5Controller controller = new PS5Controller(0);
 
   // Commands
   private final ArmCommand armCommand = new ArmCommand(armSubsystem, controller);
   private final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, null);
   private final TransferCommand transferCommand = new TransferCommand(transferSubsystem, controller);
-  private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, controller);
+  private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, null);
 
   public RobotContainer() {
     configureBindings();
@@ -28,16 +28,16 @@ public class RobotContainer {
 
   private void configureBindings() {
     // Button bindings
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kSquare.value)
+    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kSquare.value)
         .whileTrue(armCommand);
 
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kCircle.value)
+    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kCircle.value)
         .whileTrue(intakeCommand);
 
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kCross.value)
+    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kCross.value)
         .whileTrue(transferCommand);
 
-    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS4Controller.Button.kTriangle.value)
+    new edu.wpi.first.wpilibj2.command.button.JoystickButton(controller, PS5Controller.Button.kTriangle.value)
         .whileTrue(shooterCommand);
   }
 

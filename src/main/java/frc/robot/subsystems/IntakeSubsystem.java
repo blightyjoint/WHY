@@ -2,9 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -16,12 +14,19 @@ public class IntakeSubsystem extends SubsystemBase {
 
     var talonFXConfigs = new TalonFXConfiguration();
 
-    config.Slot0.kP = 0.1;
+    // Initialize hardware
+    config.Slot0.kP = 0.0;
     config.Slot0.kI = 0.0;
     config.Slot0.kD = 0.0;
-    config.Slot0.kV = 0.0;
+    config.Slot0.kA = 0.0;
+
+    var motionMagicConfigs = talonFXConfigs.MotionMagic;
+
+    motionMagicConfigs.MotionMagicCruiseVelocity = 1000;
+    motionMagicConfigs.MotionMagicAcceleration = 2000;
 
     intakeMotor.getConfigurator().apply(talonFXConfigs);
+
     // intakeMotor.configAllSettings(config);
     // intakeMotor.configNeutralDeadband(0.001);
     intakeMotor.setNeutralMode(NeutralModeValue.Brake);
