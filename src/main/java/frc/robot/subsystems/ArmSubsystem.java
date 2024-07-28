@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,7 +22,6 @@ public class ArmSubsystem extends SubsystemBase {
     config.Slot0.kA = 0.0;
 
     var motionMagicConfigs = talonFXConfigs.MotionMagic;
-
     motionMagicConfigs.MotionMagicCruiseVelocity = 1000;
     motionMagicConfigs.MotionMagicAcceleration = 2000;
 
