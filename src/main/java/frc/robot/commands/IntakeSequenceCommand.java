@@ -1,17 +1,25 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
-public class IntakeSequenceCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
-  private final TransferSubsystem transferSubsystem;
+public class IntakeSequenceCommand extends Command {
+  ShooterSubsystem shooter;
+  IntakeSubsystem intake;
+  TransferSubsystem transfer;
+  ArmSubsystem arm;
 
-  public IntakeSequenceCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem) {
-    this.intakeSubsystem = intakeSubsystem;
-    this.transferSubsystem = transferSubsystem;
-    addRequirements(intakeSubsystem, transferSubsystem);
+  public IntakeSequenceCommand(ShooterSubsystem s, IntakeSubsystem i,
+      TransferSubsystem t, ArmSubsystem a) {
+    shooter = s;
+    intake = i;
+    transfer = t;
+    arm = a;
+    addRequirements(intake, transfer);
   }
 
   @Override
@@ -20,14 +28,14 @@ public class IntakeSequenceCommand extends CommandBase {
 
   @Override
   public void execute() {
-    intakeSubsystem.setIntakeSpeed(1.0);
-    transferSubsystem.setTransferSpeed(1.0);
+    intake.setIntakeSpeed(1.0);
+    transfer.setTransferSpeed(1.0);
   }
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.setIntakeSpeed(0.0);
-    transferSubsystem.setTransferSpeed(0.0);
+    intake.setIntakeSpeed(0.0);
+    transfer.setTransferSpeed(0.0);
   }
 
   @Override
