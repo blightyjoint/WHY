@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   public static final double SHOOTER_CONSTANT_SPEED = 0;
-private final CANSparkMax shooterMotor1 = new CANSparkMax(4, MotorType.kBrushless);
+  private final CANSparkMax shooterMotor1 = new CANSparkMax(4, MotorType.kBrushless);
   private final CANSparkMax shooterMotor2 = new CANSparkMax(5, MotorType.kBrushless);
   private final SparkMaxPIDController pidController1 = shooterMotor1.getPIDController();
   private final SparkMaxPIDController pidController2 = shooterMotor2.getPIDController();
@@ -49,6 +49,7 @@ private final CANSparkMax shooterMotor1 = new CANSparkMax(4, MotorType.kBrushles
 
   public void stopShooter() {
     shooterMotor1.set(0);
+    shooterMotor2.set(0);
   }
 
   @Override
@@ -56,8 +57,8 @@ private final CANSparkMax shooterMotor1 = new CANSparkMax(4, MotorType.kBrushles
     // Update shooter state if needed
   }
 
-public boolean isAtSpeed() {
+  public boolean isAtSpeed() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'isAtSpeed'");
-}
+  }
 }

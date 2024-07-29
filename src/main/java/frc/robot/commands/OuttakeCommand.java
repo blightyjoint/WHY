@@ -5,13 +5,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
 public class OuttakeCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
+  private final frc.robot.commands.IntakeSubsystem intakeSubsystem;
   private final TransferSubsystem transferSubsystem;
 
-  public OuttakeCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem) {
-    this.intakeSubsystem = intakeSubsystem;
+  public OuttakeCommand(frc.robot.commands.IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem) {
+    this.intakeSubsystem = intakeSubsystem2;
     this.transferSubsystem = transferSubsystem;
-    addRequirements(intakeSubsystem, transferSubsystem);
+    addRequirements(intakeSubsystem2, transferSubsystem);
   }
 
   @Override

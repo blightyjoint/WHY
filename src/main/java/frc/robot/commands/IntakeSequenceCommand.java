@@ -6,17 +6,17 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
 public class IntakeSequenceCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
+  private final frc.robot.commands.IntakeSubsystem intakeSubsystem;
   private final TransferSubsystem transferSubsystem;
   private final ArmSubsystem armSubsystem;
   private final double INTAKE_ARM_POSITION = 100;
 
-  public IntakeSequenceCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem,
+  public IntakeSequenceCommand(frc.robot.commands.IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem,
       ArmSubsystem armSubsystem) {
-    this.intakeSubsystem = intakeSubsystem;
+    this.intakeSubsystem = intakeSubsystem2;
     this.transferSubsystem = transferSubsystem;
     this.armSubsystem = armSubsystem;
-    addRequirements(intakeSubsystem, transferSubsystem, armSubsystem);
+    addRequirements(intakeSubsystem2, transferSubsystem, armSubsystem);
   }
 
   @Override
