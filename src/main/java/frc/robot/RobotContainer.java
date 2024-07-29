@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -16,19 +15,23 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureButtonBindings();
+    setDefaultCommands();
   }
 
   private void configureButtonBindings() {
     controller.R1().whileTrue(new IntakeSequenceCommand(intakeSubsystem, transferSubsystem, armSubsystem));
     controller.L1().whileTrue(new OuttakeCommand(intakeSubsystem, transferSubsystem));
     controller.R2().whileTrue(new ShootingSequenceCommand(shooterSubsystem, transferSubsystem));
-    controller.cross().whileTrue(new ArmPositionCommand(armSubsystem, 300));
+    controller.cross().onTrue(new ArmPositionCommand(armSubsystem, 300));
     controller.triangle()
-        .whileTrue(new LimelightAutoShootCommand(shooterSubsystem, limelightSubsystem, transferSubsystem));
-    controller.circle().whileTrue(new CloseShotCommand(shooterSubsystem, armSubsystem, transferSubsystem));
+        .onTrue(new LimelightAutoShootCommand(shooterSubsystem, limelightSubsystem, transferSubsystem));
+    controller.circle().onTrue(new CloseShotCommand(shooterSubsystem, armSubsystem, transferSubsystem));
   }
 
-  public Command getAutonomousCommand() {
-    throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
+  private void setDefaultCommands() {
+    intakeSubsystem.setDefaultCommand(new IntakeSequenceCommand(intakeSubsystem, transferSubsystem, armSubsystem));
+    shooterSubsystem.setDefaultCommand(new BasicShootCommand(shooterSubsystem));
+    armSubsystem.setDefaultCommand(new ArmPositionCommand(armSubsystem, 0));
+    transferSubsystem.setDefaultCommand(new IdleTransferCommand(transferSubsystem));
   }
 }
