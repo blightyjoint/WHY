@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -12,17 +13,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private final SparkMaxPIDController pidController1 = shooterMotor1.getPIDController();
   private final SparkMaxPIDController pidController2 = shooterMotor2.getPIDController();
 
-  private final double SHOOTER_FULL_SPEED = 1.0; // Full speed
-  private final double SHOOTER_TARGET_POSITION = 1000; // Example target position for Motion Magic
+  private final double SHOOTER_FULL_SPEED = 1.0;
+  private final double SHOOTER_TARGET_POSITION = 1000;
 
   public ShooterSubsystem() {
-    // Initialize hardware
-    pidController1.setP(0.1); // Example PID values
+    pidController1.setP(0.1);
     pidController1.setI(0.0);
     pidController1.setD(0.0);
     pidController1.setFF(0.0);
 
-    pidController2.setP(0.1); // Example PID values
+    pidController2.setP(0.1);
     pidController2.setI(0.0);
     pidController2.setD(0.0);
     pidController2.setFF(0.0);
@@ -30,16 +30,39 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
     shooterMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-    // Set the motors to follow each other
-    shooterMotor2.follow(shooterMotor1, true); // true for inverted, adjust as needed
+    shooterMotor2.follow(shooterMotor1, true);
 
-    // Configure PID Controller for Motion Magic
-    pidController1.setOutputRange(-1.0, 1.0); // Ensure output range
-    pidController2.setOutputRange(-1.0, 1.0); // Ensure output range
+    pidController1.setOutputRange(-1.0, 1.0);
+    pidController2.setOutputRange(-1.0, 1.0);
+
+    setDefaultCommand(new CommandBase() {
+      {
+        addRequirements(ShooterSubsystem.this);
+      }
+
+      @Override
+      public void initialize() {
+        stopShooter();
+      }
+
+      @Override
+      public void execute() {
+        stopShooter();
+      }
+
+      @Override
+      public void end(boolean interrupted) {
+        stopShooter();
+      }
+
+      @Override
+      public boolean isFinished() {
+        return false;
+      }
+    });
   }
 
   public void shootNotes() {
-    // Set target position for Motion Magic
     pidController1.setReference(SHOOTER_TARGET_POSITION, CANSparkMax.ControlType.kPosition);
   }
 
@@ -54,7 +77,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Update shooter state if needed
   }
 
   public boolean isAtSpeed() {
