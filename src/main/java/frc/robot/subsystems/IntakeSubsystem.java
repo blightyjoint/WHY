@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -11,30 +11,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     intakeMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-    setDefaultCommand(new CommandBase() {
-      {
-        addRequirements(IntakeSubsystem.this);
-      }
+    setDefaultCommand(createStopIntakeCommand());
+  }
 
-      @Override
-      public void initialize() {
-        stopIntake();
-      }
-
-      @Override
-      public void execute() {
-        stopIntake();
-      }
-
-      @Override
-      public void end(boolean interrupted) {
-        stopIntake();
-      }
-
-      @Override
-      public boolean isFinished() {
-        return false;
-      }
+  private Command createStopIntakeCommand() {
+    return run(() -> {
+      stopIntake();
     });
   }
 

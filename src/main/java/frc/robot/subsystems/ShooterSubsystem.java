@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -35,31 +36,11 @@ public class ShooterSubsystem extends SubsystemBase {
     pidController1.setOutputRange(-1.0, 1.0);
     pidController2.setOutputRange(-1.0, 1.0);
 
-    setDefaultCommand(new CommandBase() {
-      {
-        addRequirements(ShooterSubsystem.this);
-      }
+    setDefaultCommand(createDefaultShooterCommand());
+  }
 
-      @Override
-      public void initialize() {
-        stopShooter();
-      }
-
-      @Override
-      public void execute() {
-        stopShooter();
-      }
-
-      @Override
-      public void end(boolean interrupted) {
-        stopShooter();
-      }
-
-      @Override
-      public boolean isFinished() {
-        return false;
-      }
-    });
+  private Command createDefaultShooterCommand() {
+    return run(() -> stopShooter());
   }
 
   public void shootNotes() {
@@ -80,7 +61,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSpeed() {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'isAtSpeed'");
   }
 }

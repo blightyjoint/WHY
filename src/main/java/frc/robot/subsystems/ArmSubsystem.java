@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -23,30 +23,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     pidController.setOutputRange(-1.0, 1.0);
 
-    setDefaultCommand(new CommandBase() {
-      {
-        addRequirements(ArmSubsystem.this);
-      }
+    setDefaultCommand(createStopArmCommand());
+  }
 
-      @Override
-      public void initialize() {
-        stopArm();
-      }
-
-      @Override
-      public void execute() {
-        stopArm();
-      }
-
-      @Override
-      public void end(boolean interrupted) {
-        stopArm();
-      }
-
-      @Override
-      public boolean isFinished() {
-        return false;
-      }
+  private Command createStopArmCommand() {
+    return run(() -> {
+      stopArm();
     });
   }
 
