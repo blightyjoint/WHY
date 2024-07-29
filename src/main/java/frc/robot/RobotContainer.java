@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -34,4 +35,9 @@ public class RobotContainer {
     armSubsystem.setDefaultCommand(new ArmPositionCommand(armSubsystem, 0));
     transferSubsystem.setDefaultCommand(new IdleTransferCommand(transferSubsystem));
   }
+
+public Command getAutonomousCommand() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
+}
 }
