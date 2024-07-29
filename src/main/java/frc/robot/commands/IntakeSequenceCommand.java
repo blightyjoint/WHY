@@ -1,45 +1,47 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
-public class IntakeSequenceCommand extends Command {
-  ShooterSubsystem shooter;
-  IntakeSubsystem intake;
-  TransferSubsystem transfer;
-  ArmSubsystem arm;
+public class IntakeSequenceCommand extends CommandBase {
+  private final IntakeSubsystem intakeSubsystem;
+  private final TransferSubsystem transferSubsystem;
+  private final ArmSubsystem armSubsystem;
+  private final double INTAKE_ARM_POSITION = 100;
 
-  public IntakeSequenceCommand(ShooterSubsystem s, IntakeSubsystem i,
-      TransferSubsystem t, ArmSubsystem a) {
-    shooter = s;
-    intake = i;
-    transfer = t;
-    arm = a;
-    addRequirements(intake, transfer);
+  public IntakeSequenceCommand(IntakeSubsystem intakeSubsystem, TransferSubsystem transferSubsystem,
+      ArmSubsystem armSubsystem) {
+    this.intakeSubsystem = intakeSubsystem;
+    this.transferSubsystem = transferSubsystem;
+    this.armSubsystem = armSubsystem;
+    addRequirements(intakeSubsystem, transferSubsystem, armSubsystem);
   }
 
   @Override
   public void initialize() {
+    armSubsystem.moveToPosition(INTAKE_ARM_POSITION);
+    transferSubsystem.closeGate();
   }
 
   @Override
   public void execute() {
-    intake.setIntakeSpeed(1.0);
-    transfer.setTransferSpeed(1.0);
+    if (armSubsystem.isAtPosition(INTAKE_ARM_POSITION)) {
+      intakeSubsystem.setIntakeSpeed(1.0);
+      transferSubsystem.setTransferSpeed(1.0);
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeSpeed(0.0);
-    transfer.setTransferSpeed(0.0);
+    intakeSubsystem.stopIntake();
+    transferSubsystem.stopTransfer();
+    armSubsystem.stopArm();
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return false; // Run until command is interrupted
   }
 }

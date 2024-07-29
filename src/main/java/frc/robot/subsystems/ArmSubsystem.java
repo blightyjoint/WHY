@@ -1,43 +1,45 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
-  private final TalonFX armMotor = new TalonFX(1);
+  private final CANSparkMax armMotor = new CANSparkMax(6, MotorType.kBrushless);
+  private final SparkMaxPIDController pidController = armMotor.getPIDController();
 
-  private final TalonFXConfiguration config = new TalonFXConfiguration();
+  private final double ARM_POSITION = 500; // Example target position for arm
 
   public ArmSubsystem() {
-
-    var talonFXConfigs = new TalonFXConfiguration();
-
     // Initialize hardware
-    config.Slot0.kP = 0.1;
-    config.Slot0.kI = 0.0;
-    config.Slot0.kD = 0.0;
-    config.Slot0.kA = 0.0;
+    pidController.setP(0.1); // Example PID values
+    pidController.setI(0.0);
+    pidController.setD(0.0);
+    pidController.setFF(0.0);
 
-    var motionMagicConfigs = talonFXConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = 1000;
-    motionMagicConfigs.MotionMagicAcceleration = 2000;
+    armMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-    armMotor.getConfigurator().apply(talonFXConfigs);
-
-    // armMotor.configAllSettings(config);
-    // armMotor.configSelectedFeedbackSensor();
-    // armMotor.configNeutralDeadband(0.001);
-    armMotor.setNeutralMode(NeutralModeValue.Brake);
+    // Configure PID Controller for Motion Magic
+    pidController.setOutputRange(-1.0, 1.0); // Ensure output range
   }
 
-  public void setArmPosition(double position) {
-    armMotor.setControl(new MotionMagicVoltage(position, false, 0.0, 0, false, false, false));
+  public void moveToPosition(double cLOSE_SHOT_ARM_POSITION) {
+    // Set target position for Motion Magic
+    pidController.setReference(ARM_POSITION, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void stopArm() {
+    armMotor.set(0);
   }
 
   @Override
   public void periodic() {
+    // Update arm state if needed
   }
+
+public boolean isAtPosition(double iNTAKE_ARM_POSITION) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'isAtPosition'");
+}
 }
