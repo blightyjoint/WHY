@@ -17,7 +17,6 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureButtonBindings();
-    setDefaultCommands();
   }
 
   private void configureButtonBindings() {
@@ -28,13 +27,6 @@ public class RobotContainer {
     controller.triangle()
         .whileTrue(new LimelightAutoShootCommand(shooterSubsystem, limelightSubsystem, transferSubsystem));
     controller.circle().whileTrue(new CloseShotCommand(shooterSubsystem, armSubsystem, transferSubsystem));
-  }
-
-  private void setDefaultCommands() {
-    intakeSubsystem.setDefaultCommand(new DefaultIntakeCommand(intakeSubsystem));
-    shooterSubsystem.setDefaultCommand(new DefaultShooterCommand(shooterSubsystem));
-    armSubsystem.setDefaultCommand(new DefaultArmCommand(armSubsystem));
-    transferSubsystem.setDefaultCommand(new DefaultTransferCommand(transferSubsystem));
   }
 
   public Command getAutonomousCommand() {
