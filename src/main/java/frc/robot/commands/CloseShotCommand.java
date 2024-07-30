@@ -28,7 +28,7 @@ public class CloseShotCommand extends CommandBase {
 
   @Override
   public void execute() {
-    shooterSubsystem.shootNotes();
+    shooterSubsystem.shootNotes(CLOSE_SHOT_ARM_POSITION, CLOSE_SHOT_ARM_POSITION);
     transferSubsystem.setTransferSpeed(1.0);
   }
 

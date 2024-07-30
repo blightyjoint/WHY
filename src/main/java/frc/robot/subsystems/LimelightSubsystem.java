@@ -14,8 +14,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
   private Command createDefaultLimelightCommand() {
     return run(() -> {
-      setLEDMode(1);
-      setCamMode(0);
     });
   }
 
@@ -25,18 +23,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
   public double getTargetArea() {
     return limelightTable.getEntry("ta").getDouble(0.0);
-  }
-
-  public void setLEDMode(int mode) {
-    limelightTable.getEntry("ledMode").setNumber(mode);
-  }
-
-  public void setCamMode(int mode) {
-    limelightTable.getEntry("camMode").setNumber(mode);
-  }
-
-  public void setPipeline(int pipeline) {
-    limelightTable.getEntry("pipeline").setNumber(pipeline);
   }
 
   @Override

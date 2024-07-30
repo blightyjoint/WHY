@@ -5,41 +5,43 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
 public class ShootingSequenceCommand extends CommandBase {
-  private final ShooterSubsystem shooterSubsystem;
-  private final TransferSubsystem transferSubsystem;
-  private boolean shooterAtSpeed = false;
+    private final ShooterSubsystem shooterSubsystem;
+    private final TransferSubsystem transferSubsystem;
+    private boolean shooterAtSpeed = false;
 
-  public ShootingSequenceCommand(ShooterSubsystem shooterSubsystem, TransferSubsystem transferSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
-    this.transferSubsystem = transferSubsystem;
-    addRequirements(shooterSubsystem, transferSubsystem);
-  }
+    public ShootingSequenceCommand(ShooterSubsystem shooterSubsystem,
+            TransferSubsystem transferSubsystem) {
+        this.shooterSubsystem = shooterSubsystem;
+        this.transferSubsystem = transferSubsystem;
 
-  @Override
-  public void initialize() {
-    shooterSubsystem.setShooterSpeed(1.0);
-    transferSubsystem.closeGate();
-    shooterAtSpeed = false;
-  }
-
-  @Override
-  public void execute() {
-    if (shooterSubsystem.isAtSpeed()) {
-      shooterAtSpeed = true;
-      transferSubsystem.openGate();
-      transferSubsystem.setTransferSpeed(1.0);
+        addRequirements(shooterSubsystem, transferSubsystem);
     }
-  }
 
-  @Override
-  public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
-    transferSubsystem.stopTransfer();
-    transferSubsystem.closeGate();
-  }
+    @Override
+    public void initialize() {
+        shooterSubsystem.setShooterSpeed(1.0);
+        transferSubsystem.closeGate();
+        shooterAtSpeed = false;
+    }
 
-  @Override
-  public boolean isFinished() {
-    return shooterAtSpeed && !shooterSubsystem.isAtSpeed();
-  }
+    @Override
+    public void execute() {
+        if (shooterSubsystem.isAtSpeed()) {
+            shooterAtSpeed = true;
+            transferSubsystem.openGate();
+            transferSubsystem.setTransferSpeed(1.0);
+        }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        shooterSubsystem.stopShooter();
+        transferSubsystem.stopTransfer();
+        transferSubsystem.closeGate();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return shooterAtSpeed && !shooterSubsystem.isAtSpeed();
+    }
 }

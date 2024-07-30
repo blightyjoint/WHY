@@ -9,7 +9,7 @@ public class IntakeSequenceCommand extends CommandBase {
   private final frc.robot.commands.IntakeSubsystem intakeSubsystem;
   private final TransferSubsystem transferSubsystem;
   private final ArmSubsystem armSubsystem;
-  private final double INTAKE_ARM_POSITION = 100;
+  private final double INTAKE_ARM_POSITION = 0;
 
   public IntakeSequenceCommand(frc.robot.commands.IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem,
       ArmSubsystem armSubsystem) {

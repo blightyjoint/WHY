@@ -1,15 +1,22 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private final CANSparkMax intakeMotor = new CANSparkMax(7, MotorType.kBrushless);
+  private final TalonFX intakeMotor = new TalonFX(Constants.IntakeMotorPort);
 
   public IntakeSubsystem() {
-    intakeMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    // Initialize hardware
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    intakeMotor.getConfigurator().apply(config);
+
+    intakeMotor.setNeutralMode(NeutralModeValue.Brake);
 
     setDefaultCommand(createStopIntakeCommand());
   }
@@ -21,11 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double speed) {
-    intakeMotor.set(speed);
+    intakeMotor.setControl(new VoltageOut(speed));
   }
 
   public void stopIntake() {
-    intakeMotor.set(0);
+    intakeMotor.setControl(new VoltageOut(0));
   }
 
   @Override

@@ -1,17 +1,18 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class TransferSubsystem extends SubsystemBase {
-  private final CANSparkMax transferMotor = new CANSparkMax(8, MotorType.kBrushless);
+  private final TalonFX transferMotor = new TalonFX(Constants.TransferMotorPort);
   private final Servo gateServo = new Servo(0);
 
   public TransferSubsystem() {
-    transferMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    transferMotor.setNeutralMode(NeutralModeValue.Brake);
 
     setDefaultCommand(createDefaultTransferCommand());
   }
@@ -32,11 +33,11 @@ public class TransferSubsystem extends SubsystemBase {
   }
 
   public void openGate() {
-    gateServo.setAngle(90);
+    gateServo.setAngle(0.6);
   }
 
   public void closeGate() {
-    gateServo.setAngle(0);
+    gateServo.setAngle(0.0);
   }
 
   @Override

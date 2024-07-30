@@ -26,7 +26,7 @@ public class LimelightAutoShootCommand extends CommandBase {
   @Override
   public void execute() {
     if (isAlignedWithTarget()) {
-      shooterSubsystem.shootNotes();
+      shooterSubsystem.shootNotes(0, 0);
       transferSubsystem.setTransferSpeed(1.0);
     } else {
       shooterSubsystem.stopShooter();

@@ -11,7 +11,7 @@ public class OuttakeCommand extends CommandBase {
   public OuttakeCommand(frc.robot.commands.IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem) {
     this.intakeSubsystem = intakeSubsystem2;
     this.transferSubsystem = transferSubsystem;
-    addRequirements(intakeSubsystem2, transferSubsystem);
+    addRequirements(intakeSubsystem, transferSubsystem);
   }
 
   @Override

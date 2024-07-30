@@ -1,27 +1,30 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-  private final CANSparkMax armMotor = new CANSparkMax(6, MotorType.kBrushless);
-  private final SparkMaxPIDController pidController = armMotor.getPIDController();
+  private final TalonFX armMotor = new TalonFX(Constants.ArmMotorPort);
 
   private final double ARM_POSITION = 500;
 
   public ArmSubsystem() {
-    // Initialize hardware
-    pidController.setP(0.1);
-    pidController.setI(0.0);
-    pidController.setD(0.0);
-    pidController.setFF(0.0);
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.Slot0.kP = 0.1;
+    config.Slot0.kI = 0.0;
+    config.Slot0.kD = 0.0;
+    config.Slot0.kV = 0.0;
+    armMotor.getConfigurator().apply(config);
 
-    armMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-
-    pidController.setOutputRange(-1.0, 1.0);
+    // armMotor.setInverted(InvertedValue.Clockwise_Positive;
+    armMotor.setInverted(false);
+    armMotor.setNeutralMode(NeutralModeValue.Brake);
 
     setDefaultCommand(createStopArmCommand());
   }
@@ -33,7 +36,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void moveToPosition(double position) {
-    pidController.setReference(position, CANSparkMax.ControlType.kPosition);
+    armMotor.setControl(new PositionVoltage(position, position, true, 0, 0, false, false, false));
   }
 
   public void stopArm() {
