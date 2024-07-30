@@ -48,11 +48,6 @@ public class ShooterSubsystem extends SubsystemBase {
     pidController2.setD(0.001);
     pidController2.setOutputRange(0, 6000);
 
-    shooterMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    shooterMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
-
-    shooterMotor2.follow(shooterMotor1, true);
-
     setDefaultCommand(createDefaultShooterCommand());
 
     shooterMotor1.burnFlash();
