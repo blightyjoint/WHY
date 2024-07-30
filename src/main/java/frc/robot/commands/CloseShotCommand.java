@@ -24,23 +24,25 @@ public class CloseShotCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    // close shot pos
-    armSubsystem.moveToPosition(CLOSE_SHOT_ARM_POSITION);
-    transferSubsystem.openGate();
+
   }
 
   @Override
   public void execute() {
     shooterSubsystem.shootNotes(CLOSE_SHOT_ARM_POSITION, CLOSE_SHOT_ARM_POSITION);
     transferSubsystem.setTransferSpeed(1.0);
-  }
-
-  @Override
-  public void end(boolean interrupted) {
     shooterSubsystem.stopShooter();
     armSubsystem.stopArm();
     transferSubsystem.stopTransfer();
     transferSubsystem.closeGate();
+
+    // close shot pos
+    armSubsystem.moveToPosition(CLOSE_SHOT_ARM_POSITION);
+    transferSubsystem.openGate();
+  }
+
+  @Override
+  public void end(boolean interrupted) {
   }
 
   @Override

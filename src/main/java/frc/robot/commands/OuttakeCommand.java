@@ -16,18 +16,20 @@ public class OuttakeCommand extends CommandBase {
 
   @Override
   public void initialize() {
+
+  }
+
+  @Override
+  public void execute() {
+    intakeSubsystem.stopIntake();
+    transferSubsystem.stopTransfer();
+
     intakeSubsystem.setIntakeSpeed(-1.0);
     transferSubsystem.setTransferSpeed(-1.0);
   }
 
   @Override
-  public void execute() {
-  }
-
-  @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.stopIntake();
-    transferSubsystem.stopTransfer();
   }
 
   @Override

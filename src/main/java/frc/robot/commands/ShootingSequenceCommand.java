@@ -19,9 +19,7 @@ public class ShootingSequenceCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        shooterSubsystem.setShooterSpeed(1.0);
-        transferSubsystem.closeGate();
-        shooterAtSpeed = false;
+
     }
 
     @Override
@@ -31,13 +29,17 @@ public class ShootingSequenceCommand extends CommandBase {
             transferSubsystem.openGate();
             transferSubsystem.setTransferSpeed(1.0);
         }
+        shooterSubsystem.stopShooter();
+        transferSubsystem.stopTransfer();
+        transferSubsystem.closeGate();
+
+        shooterSubsystem.setShooterSpeed(1.0);
+        transferSubsystem.closeGate();
+        shooterAtSpeed = false;
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.stopShooter();
-        transferSubsystem.stopTransfer();
-        transferSubsystem.closeGate();
     }
 
     @Override

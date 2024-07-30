@@ -21,8 +21,7 @@ public class IntakeSequenceCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    armSubsystem.moveToPosition(INTAKE_ARM_POSITION);
-    transferSubsystem.closeGate();
+
   }
 
   @Override
@@ -30,14 +29,16 @@ public class IntakeSequenceCommand extends CommandBase {
     // if (armSubsystem.isAtPosition(INTAKE_ARM_POSITION)) {
     intakeSubsystem.setIntakeSpeed(1.0);
     transferSubsystem.setTransferSpeed(1.0);
+    intakeSubsystem.stopIntake();
+    transferSubsystem.stopTransfer();
+    armSubsystem.stopArm();
+    armSubsystem.moveToPosition(INTAKE_ARM_POSITION);
+    transferSubsystem.closeGate();
 
   }
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.stopIntake();
-    transferSubsystem.stopTransfer();
-    armSubsystem.stopArm();
   }
 
   @Override

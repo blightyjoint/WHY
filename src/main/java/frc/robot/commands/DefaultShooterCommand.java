@@ -13,17 +13,18 @@ public class DefaultShooterCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    shooterSubsystem.stopShooter();
   }
 
   @Override
   public void execute() {
     shooterSubsystem.stopShooter();
+    shooterSubsystem.stopShooter();
+    shooterSubsystem.stopShooter();
+
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
   }
 
   @Override

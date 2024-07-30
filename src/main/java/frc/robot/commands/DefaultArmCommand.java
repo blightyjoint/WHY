@@ -13,17 +13,17 @@ public class DefaultArmCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    armSubsystem.stopArm();
   }
 
   @Override
   public void execute() {
     armSubsystem.stopArm();
+    armSubsystem.stopArm();
+    armSubsystem.stopArm();
   }
 
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.stopArm();
   }
 
   @Override

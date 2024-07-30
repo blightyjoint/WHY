@@ -13,17 +13,17 @@ public class DefaultIntakeCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    intakeSubsystem.stopIntake();
   }
 
   @Override
   public void execute() {
     intakeSubsystem.stopIntake();
+    intakeSubsystem.stopIntake();
+    intakeSubsystem.stopIntake();
   }
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.stopIntake();
   }
 
   @Override

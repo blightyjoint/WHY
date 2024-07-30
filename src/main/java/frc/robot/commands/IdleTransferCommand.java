@@ -13,16 +13,17 @@ public class IdleTransferCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    transferSubsystem.stopTransfer();
   }
 
   @Override
   public void execute() {
+    transferSubsystem.stopTransfer();
+    transferSubsystem.stopTransfer();
+
   }
 
   @Override
   public void end(boolean interrupted) {
-    transferSubsystem.stopTransfer();
   }
 
   @Override

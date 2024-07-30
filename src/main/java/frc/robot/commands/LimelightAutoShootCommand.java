@@ -20,7 +20,6 @@ public class LimelightAutoShootCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    transferSubsystem.openGate();
   }
 
   @Override
@@ -32,18 +31,21 @@ public class LimelightAutoShootCommand extends CommandBase {
       shooterSubsystem.stopShooter();
       transferSubsystem.stopTransfer();
     }
+
+    transferSubsystem.openGate();
+
   }
 
   private boolean isAlignedWithTarget() {
     double targetOffset = limelightSubsystem.getTargetOffset();
     return Math.abs(targetOffset) < 1.0;
+    // shooterSubsystem.stopShooter();
+    // transferSubsystem.stopTransfer();
+    // transferSubsystem.closeGate();
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
-    transferSubsystem.stopTransfer();
-    transferSubsystem.closeGate();
   }
 
   @Override

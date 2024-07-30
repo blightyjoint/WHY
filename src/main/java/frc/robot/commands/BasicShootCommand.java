@@ -13,16 +13,16 @@ public class BasicShootCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    shooterSubsystem.setShooterSpeed(0.5);
   }
 
   @Override
   public void execute() {
+    shooterSubsystem.stopShooter();
+    shooterSubsystem.setShooterSpeed(0.5);
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
   }
 
   @Override

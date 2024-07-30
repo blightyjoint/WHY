@@ -15,17 +15,16 @@ public class ArmPositionCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        armSubsystem.moveToPosition(targetPosition);
     }
 
     @Override
     public void execute() {
-
+        armSubsystem.stopArm();
+        armSubsystem.moveToPosition(targetPosition);
     }
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.stopArm();
     }
 
     @Override
