@@ -30,6 +30,7 @@ public class ArmPositionCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return armSubsystem.isAtPosition(targetPosition);
+        return false;
+        // return armSubsystem.isAtPosition(targetPosition);
     }
 }

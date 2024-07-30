@@ -27,10 +27,10 @@ public class IntakeSequenceCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (armSubsystem.isAtPosition(INTAKE_ARM_POSITION)) {
-      intakeSubsystem.setIntakeSpeed(1.0);
-      transferSubsystem.setTransferSpeed(1.0);
-    }
+    // if (armSubsystem.isAtPosition(INTAKE_ARM_POSITION)) {
+    intakeSubsystem.setIntakeSpeed(1.0);
+    transferSubsystem.setTransferSpeed(1.0);
+
   }
 
   @Override

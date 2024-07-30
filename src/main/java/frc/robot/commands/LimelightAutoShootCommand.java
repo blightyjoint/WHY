@@ -1,16 +1,16 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.TransferSubsystem;
 
 public class LimelightAutoShootCommand extends CommandBase {
   private final ShooterSubsystem shooterSubsystem;
-  private final LimelightSubsystem limelightSubsystem;
+  private final Limelight limelightSubsystem;
   private final TransferSubsystem transferSubsystem;
 
-  public LimelightAutoShootCommand(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem,
+  public LimelightAutoShootCommand(ShooterSubsystem shooterSubsystem, Limelight limelightSubsystem,
       TransferSubsystem transferSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
     this.limelightSubsystem = limelightSubsystem;

@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.*;
 import frc.robot.commands.IntakeSubsystem;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Limelight;
 
 public class RobotContainer {
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  private final Limelight limelightSubsystem = new Limelight();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
 
   private final CommandPS5Controller controller = new CommandPS5Controller(0);
