@@ -21,7 +21,9 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    controller.R1().whileTrue(new IntakeSequenceCommand(intakeSubsystem, transferSubsystem, armSubsystem));
+    controller.R1().whileTrue(new IntakeSequenceCommand(null, transferSubsystem, armSubsystem));
+    // controller.R1().whileTrue(new IntakeSequenceCommand(intakeSubsystem,
+    // transferSubsystem, armSubsystem));
     controller.L1().whileTrue(new OuttakeCommand(intakeSubsystem, transferSubsystem));
     // controller.R2().whileTrue(new ShootingSequenceCommand(shooterSubsystem,
     // transferSubsystem));
