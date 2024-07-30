@@ -6,12 +6,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TransferSubsystem;
 
 public class IntakeSequenceCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
+  private final frc.robot.commands.IntakeSubsystem intakeSubsystem;
   private final TransferSubsystem transferSubsystem;
   private final ArmSubsystem armSubsystem;
   private final double INTAKE_ARM_POSITION = 0;
 
-  public IntakeSequenceCommand(IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem,
+  public IntakeSequenceCommand(frc.robot.commands.IntakeSubsystem intakeSubsystem2, TransferSubsystem transferSubsystem,
       ArmSubsystem armSubsystem) {
     this.intakeSubsystem = intakeSubsystem2;
     this.transferSubsystem = transferSubsystem;
@@ -29,9 +29,6 @@ public class IntakeSequenceCommand extends CommandBase {
     // if (armSubsystem.isAtPosition(INTAKE_ARM_POSITION)) {
     intakeSubsystem.setIntakeSpeed(1.0);
     transferSubsystem.setTransferSpeed(1.0);
-    intakeSubsystem.stopIntake();
-    transferSubsystem.stopTransfer();
-    armSubsystem.stopArm();
     armSubsystem.moveToPosition(INTAKE_ARM_POSITION);
     transferSubsystem.closeGate();
 

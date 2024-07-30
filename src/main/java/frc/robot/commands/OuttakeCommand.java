@@ -21,8 +21,6 @@ public class OuttakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    intakeSubsystem.stopIntake();
-    transferSubsystem.stopTransfer();
 
     intakeSubsystem.setIntakeSpeed(-1.0);
     transferSubsystem.setTransferSpeed(-1.0);
