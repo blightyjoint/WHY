@@ -28,11 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeSpeed(double speed) {
-    intakeMotor.setControl(new VoltageOut(speed));
+    intakeMotor.set(speed);
   }
 
   public void stopIntake() {
-    intakeMotor.setControl(new VoltageOut(0));
+    intakeMotor.set(0);
   }
 
   @Override

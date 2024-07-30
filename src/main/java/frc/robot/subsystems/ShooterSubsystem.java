@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
 
-// import com.ctre.phoenix6.hardware.CANSparkFlex;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkPIDController;
-
-import edu.wpi.first.math.controller.PIDController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,28 +13,23 @@ public class ShooterSubsystem extends SubsystemBase {
   public static final double SHOOTER_CONSTANT_SPEED = 0;
   private final double SHOOTER_FULL_SPEED = 1.0;
   private final double SHOOTER_TARGET_POSITION = 1000;
-  private final com.revrobotics.CANSparkFlex shooterMotor1 = new com.revrobotics.CANSparkFlex(
-      Constants.ShooterMotor1Port,
-      MotorType.kBrushless);
-  private final com.revrobotics.CANSparkFlex shooterMotor2 = new com.revrobotics.CANSparkFlex(
-      Constants.ShooterMotor2Port, MotorType.kBrushless);
 
-  private SparkPIDController pidController1;
-  private SparkPIDController pidController2;
+  private final CANSparkMax shooterMotor1;
+  private final CANSparkMax shooterMotor2;
+  private final SparkMaxPIDController pidController1;
+  private final SparkMaxPIDController pidController2;
+  private final CANEncoder encoder1;
+  private final CANEncoder encoder2;
 
-  /*
-   * private final com.revrobotics.CANSparkFlex shooterMotor1 = new
-   * com.revrobotics.CANSparkFlex(4, null);
-   * private final com.revrobotics.CANSparkFlex shooterMotor2 = new
-   * com.revrobotics.CANSparkFlex(5, null);
-   */
-
-  // private final MotionMagicVoltage pidController1 = new
-  // MotionMagicVoltage(SHOOTER_FULL_SPEED);
-  // private final MotionMagicVoltage pidController2 = new
-  // MotionMagicVoltage(SHOOTER_FULL_SPEED);
+  private boolean shooterSpeedReached;
 
   public ShooterSubsystem() {
+    shooterMotor1 = new CANSparkMax(Constants.ShooterMotor1Port, MotorType.kBrushless);
+    shooterMotor2 = new CANSparkMax(Constants.ShooterMotor2Port, MotorType.kBrushless);
+    pidController1 = shooterMotor1.getPIDController();
+    pidController2 = shooterMotor2.getPIDController();
+    encoder1 = shooterMotor1.getEncoder();
+    encoder2 = shooterMotor2.getEncoder();
 
     shooterMotor1.restoreFactoryDefaults();
     shooterMotor2.restoreFactoryDefaults();
@@ -57,11 +48,10 @@ public class ShooterSubsystem extends SubsystemBase {
     pidController2.setD(0.001);
     pidController2.setOutputRange(0, 6000);
 
-    // shooterMotor1.getConfigurator().apply(pidController1);
-    // shooterMotor2.getConfigurator().apply(pidController2);
+    shooterMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    shooterMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-    // shooterMotor2.follow(shooterMotor1);
-    // Maybe enable this ^^
+    shooterMotor2.follow(shooterMotor1, true);
 
     setDefaultCommand(createDefaultShooterCommand());
 
@@ -70,7 +60,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   private Command createDefaultShooterCommand() {
-    return run(() -> stopShooter());
+    return run(this::stopShooter);
   }
 
   public void shootNotes(double setPoint1, double setPoint2) {
@@ -87,11 +77,28 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor2.set(0);
   }
 
+  public void setShooterRPM(double leftFlywheelSetPoint, double rightFlywheelSetPoint) {
+    shooterSpeedReached = false;
+    pidController1.setReference(leftFlywheelSetPoint, ControlType.kVelocity);
+    pidController2.setReference(rightFlywheelSetPoint, ControlType.kVelocity);
+
+    double leftVelocity = encoder1.getVelocity();
+    double rightVelocity = encoder2.getVelocity();
+
+    if (leftVelocity > leftFlywheelSetPoint * 0.9 && leftVelocity < leftFlywheelSetPoint * 1.1 &&
+        rightVelocity > rightFlywheelSetPoint * 0.9 && rightVelocity < rightFlywheelSetPoint * 1.1) {
+      shooterSpeedReached = true;
+    } else {
+      shooterSpeedReached = false;
+    }
+  }
+
   @Override
   public void periodic() {
+    // Optionally, you can add periodic checks or updates here
   }
 
   public boolean isAtSpeed() {
-    throw new UnsupportedOperationException("Unimplemented method 'isAtSpeed'");
+    return shooterSpeedReached;
   }
 }
