@@ -13,10 +13,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     // Initialize hardware
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    intakeMotor.getConfigurator().apply(config);
+    // TalonFXConfiguration config = new TalonFXConfiguration();
+    // intakeMotor.getConfigurator().apply(config);
 
-    intakeMotor.setNeutralMode(NeutralModeValue.Brake);
+    // intakeMotor.setNeutralMode(NeutralModeValue.Brake);
 
     setDefaultCommand(createStopIntakeCommand());
   }
