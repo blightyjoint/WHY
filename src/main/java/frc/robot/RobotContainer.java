@@ -25,11 +25,12 @@ public class RobotContainer {
     // controller.R1().whileTrue(new IntakeSequenceCommand(intakeSubsystem,
     // transferSubsystem, armSubsystem));
     controller.L1().whileTrue(new OuttakeCommand(intakeSubsystem, transferSubsystem));
-    // controller.R2().whileTrue(new ShootingSequenceCommand(shooterSubsystem,
-    // transferSubsystem));
+    controller.R2().whileTrue(new ShootingSequenceCommand(shooterSubsystem,
+        transferSubsystem));
     // controller.cross().whileTrue(new ArmPositionCommand(armSubsystem, 56));
-    controller.triangle()
-        .whileTrue(new LimelightAutoShootCommand(shooterSubsystem, limelightSubsystem, transferSubsystem));
+    // controller.triangle()
+    // .whileTrue(new LimelightAutoShootCommand(shooterSubsystem,
+    // limelightSubsystem, transferSubsystem));
     controller.circle().whileTrue(new CloseShotCommand(shooterSubsystem, armSubsystem, transferSubsystem));
   }
 

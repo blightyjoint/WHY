@@ -12,7 +12,7 @@ public class CloseShotCommand extends CommandBase {
   private final ShooterSubsystem shooterSubsystem;
   private final ArmSubsystem armSubsystem;
   private final TransferSubsystem transferSubsystem;
-  private final double CLOSE_SHOT_ARM_POSITION = 250;
+  private final double CLOSE_SHOT_ARM_POSITION = 10;
 
   public CloseShotCommand(ShooterSubsystem shooterSubsystem, ArmSubsystem armSubsystem,
       TransferSubsystem transferSubsystem) {

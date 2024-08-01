@@ -9,7 +9,7 @@ import frc.robot.Constants;
 
 public class TransferSubsystem extends SubsystemBase {
   private final TalonFX transferMotor = new TalonFX(Constants.TransferMotorPort);
-  private final Servo gateServo = new Servo(0);
+  private final Servo gateServo = new Servo(10);
 
   public TransferSubsystem() {
     transferMotor.setNeutralMode(NeutralModeValue.Brake);
